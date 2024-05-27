@@ -14,6 +14,12 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
-  }
+    ],
+    "jsx": "preserve"
+  },
+  "include": [
+    "src/**/*.js",
+    "src/**/*.vue",
+    "src/**/*.ts"
+  ]
 }
