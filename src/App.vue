@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <img src="@/assets/marte.svg" alt="Ícone"/>
+      <img src="@/assets/marte.png" alt="Ícone" />
     </header>
     <HomePage />
   </div>
@@ -21,18 +21,6 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&display=swap');
 
-:root {
-  --cor-azul-escuro: #2f363f;
-  --cor-rosa-claro: #BD6375;
-  --cor-bege: #D99379;
-  --cor-bege-claro: #f2e0bc;
-  --cor-vermelho-rosado: #bf6b6a;
-  --cor-preto: #0d0d0d;
-  --cor-laranja: #f7a18e;
-  --cor-laranja-escuro: #bf573e;
-  --cor-marrom: #3d120a;
-  --cor-marrom-escuro: #742c1e;
-}
 
 * {
   margin: 0;
@@ -42,9 +30,9 @@ export default {
 
 header {
   height: 80px;
-  background-color: var(--cor-preto);
+  background-color: #0d0d0d;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   color: var(--cor-bege-claro);
 }
@@ -54,15 +42,19 @@ header h1 {
   font-size: 48px;
 }
 
+header img {
+  padding-left: 24px;
+}
+
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--cor-bege-claro);
+  background-color: #ccc;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--cor-preto)
+  background-color: #1f1f1f;
 }
 </style>

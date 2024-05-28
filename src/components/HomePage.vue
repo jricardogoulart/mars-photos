@@ -9,13 +9,13 @@
     <div v-else>
       <div v-if="photosByDate">
         <div v-for="(photos, date) in photosByDate" :key="date" class="photo-section">
-          <h2>Retratos de {{ date }}</h2>
+          <h2>Registros de {{ date }}</h2>
           <div class="photo-grid">
-            <div v-for="photo in photos.slice(0, 3)" :key="photo.id" class="photo-card">
+            <div v-for="photo in photos.slice(0, 4)" :key="photo.id" class="photo-card">
               <img :src="photo.img_src" :alt="'Foto tirada pelo rover ' + photo.rover.name + ' em ' + date">
             </div>
           </div>
-          <button v-if="photos.length > 3" @click="showMore(date)">Ver mais</button>
+          <button v-if="photos.length > 4" @click="showMore(date)">Expandir</button>
         </div>
       </div>
       <div v-else>
@@ -25,7 +25,7 @@
       <!-- Popup para exibir todas as fotos de uma data específica -->
       <div v-if="popupVisible" class="popup-overlay" @click="popupVisible = false">
         <div class="popup-content" @click.stop>
-          <h2>Fotos de {{ selectedDate }}</h2>
+          <h2>Mais Registros de {{ selectedDate }}</h2>
           <div class="photo-grid">
             <div v-for="photo in photosByDate[selectedDate]" :key="photo.id" class="photo-card">
               <img :src="photo.img_src" :alt="'Foto tirada pelo rover ' + photo.rover.name + ' em ' + selectedDate">
@@ -71,7 +71,7 @@ export default {
   methods: {
     async fetchPhotos() {
       this.isLoading = true;  // Inicia o estado de carregamento
-      const rovers = ['curiosity', 'perseverance'];
+      const rovers = ['curiosity', 'perseverance', "spirit"];
       const sols = [1000, 1001, 1002, 1003, 1004, 800, 600];
       const batchSize = 100;
 
@@ -122,50 +122,71 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .photo-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 24px;
   justify-content: center;
 }
 
 .photo-card {
-  background: var(--cor-bege-claro);
-  border: 1px solid var(--cor-marrom);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   overflow: hidden;
-  width: 320px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  width: 240px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .photo-card img {
   width: 100%;
   height: auto;
+  display: block;
 }
 
 .photo-card:hover {
   transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .photo-section {
-  margin: 32px;
+  margin: 32px 0;
   text-align: center;
+  color: #333;
+  font-weight: 400;
+  font-size: 20px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  width: 100vw;
+}
+
+.photo-section h2 {
+  font-weight: 100;
+  letter-spacing: 1px;
+  margin: 8px;
 }
 
 button {
-  background-color: var(--cor-laranja);
-  color: white;
-  border: 1px solid var(--cor-laranja-escuro);
-  padding: 10px 20px;
-  border-radius: 5px;
+  margin: 32px;
+  border: 1px solid #4b4b4b;
+  color: #4b4b4b;
+  padding: 4px 8px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: 600ms ease;
+  font-size: 24px;
+  opacity: 0.7
 }
 
 button:hover {
-  background-color: var(--cor-laranja-escuro);
+  transform: scale(1.02);
+  box-shadow: 0 0px 24px #ff8c3f;
+  border-color: #e65c0079;
+  color: #f9f9f9;
+  background-color: #e65c00d3;
+  opacity: 1;
 }
 
 .popup-overlay {
@@ -181,12 +202,13 @@ button:hover {
 }
 
 .popup-content {
-  background: var(--cor-bege);
+  background: #e4e4e4;
   padding: 20px;
   border-radius: 8px;
   width: 80%;
   max-height: 80%;
   overflow-y: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .popup-content h2 {
@@ -212,24 +234,25 @@ button:hover {
 }
 
 .spinner {
-  border: 8px solid var(--cor-bege);
-  border-top: 8px solid var(--cor-laranja);
+  border: 8px solid #3315028a;
+  border-top: 8px solid #ff6600;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   animation: spin 1s linear infinite;
   margin-bottom: 10px;
 }
 
 .spinner-container p {
-  color: var(--cor-bege-claro);
-  font-size: 16px;
+  color: #333;
+  font-size: 18px;
 }
 
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
